@@ -1,0 +1,108 @@
+$timeline-line-colour: #999
+$timeline-width: 80px
+$major-width: 40px
+$minor-width: 30px
+
+=milestone-style($size, $background)
+	width: $size
+	height: $size
+	background: white
+	border: 2px solid $background
+
+.timeline
+	position: relative
+	display: relative
+	width: 100%
+
+	> .event
+		display: flex
+		width: 100%
+		background: red
+		min-height: 300px
+		align-items: stretch
+
+		> .date
+			display: inline-block
+			width: 70px
+			background: blue
+			text-align: center
+			flex-shrink: 0
+
+		> .milestone
+			display: inline-block
+			width: 50px
+			background: darkorange
+			text-align: center
+			flex-shrink: 0
+
+		> .content
+			display: flex
+			flex-grow: 1
+			background: purple
+			flex-direction: column
+
+			> .description
+				width: 100%
+				background: green
+
+			> .photos
+				width: 100%
+				background: pink
+				display: flex
+				flex-wrap: wrap
+				padding: 3px
+				box-sizing: border-box
+
+				> .photo
+					width: 200px
+					height: 150px
+					display: inline-block
+					background: yellow
+					float: left
+					margin: 3px
+					flex-grow: 1
+
+
+// .timeline
+// 	position: relative
+// 	width: $timeline-width
+// 	margin: 20px 0
+// 	margin-left: 50px
+// 	text-align: center
+
+// 	&:before
+// 		content: ""
+// 		position: absolute
+// 		top: 0
+// 		width: 1px
+// 		height: 100%
+// 		left: 50%
+// 		transform: translateX(-50%)
+// 		background: $timeline-line-colour
+
+// 	> .milestone
+// 		position: relative
+// 		margin: 100px auto
+// 		border-radius: 50%
+// 		box-sizing: border-box
+
+// 		&:first-child
+// 			margin-top: 0
+
+// 		&:last-child
+// 			margin-bottom: 0
+
+// 		&.major
+// 			+milestone-style($major-width, #00CED1)
+
+// 		&.minor
+// 			+milestone-style($minor-width, #D9169F)
+
+// 		&:before
+// 			content: attr(date)
+// 			position: absolute
+// 			left: -50px
+// 			top: 50%
+// 			transform: translateY(-50%)
+// 			white-space: nowrap
+// 			font-size: 12px
