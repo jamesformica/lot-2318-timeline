@@ -3,7 +3,12 @@ $timeline-width: 80px
 $major-width: 40px
 $minor-width: 30px
 
+$date-width: 70px
+$milestone-width: 50px
+
 =milestone-style($size, $background)
+	position: relative
+	display: inline-block
 	width: $size
 	height: $size
 	background: white
@@ -17,50 +22,64 @@ $minor-width: 30px
 	> .event
 		display: flex
 		width: 100%
-		background: red
-		min-height: 300px
 		align-items: stretch
 
 		> .date
 			display: inline-block
-			width: 70px
-			background: blue
+			width: $date-width
 			text-align: center
 			flex-shrink: 0
 
 		> .milestone
+			position: relative
 			display: inline-block
-			width: 50px
-			background: darkorange
+			width: $milestone-width
 			text-align: center
 			flex-shrink: 0
+
+			&:before
+				content: ""
+				position: absolute
+				top: 0
+				width: 1px
+				height: 100%
+				left: 50%
+				transform: translateX(-50%)
+				background: $timeline-line-colour
+
+			> .major
+				border-radius: 50%
+				+milestone-style($major-width, #00CED1)
 
 		> .content
 			display: flex
 			flex-grow: 1
-			background: purple
 			flex-direction: column
+			padding: 0 20px
 
 			> .description
-				width: 100%
-				background: green
+				position: relative
+				padding: 20px
+				margin-bottom: 20px
+				box-sizing: border-box
+				font-weight: bold
 
 			> .photos
 				width: 100%
-				background: pink
 				display: flex
 				flex-wrap: wrap
 				padding: 3px
 				box-sizing: border-box
 
 				> .photo
+					background-color: white
 					width: 200px
 					height: 150px
 					display: inline-block
-					background: yellow
 					float: left
 					margin: 3px
 					flex-grow: 1
+					box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24)
 
 
 // .timeline
