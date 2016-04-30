@@ -1,10 +1,12 @@
 $timeline-line-colour: #999
-$timeline-width: 80px
+
 $major-width: 40px
 $minor-width: 30px
 
 $date-width: 70px
 $milestone-width: 50px
+
+$photo-margin: 3px
 
 =milestone-style($size, $background)
 	position: relative
@@ -16,7 +18,6 @@ $milestone-width: 50px
 
 .timeline
 	position: relative
-	display: relative
 	width: 100%
 
 	> .event
@@ -25,10 +26,23 @@ $milestone-width: 50px
 		align-items: stretch
 
 		> .date
+			position: relative
 			display: inline-block
 			width: $date-width
 			text-align: center
 			flex-shrink: 0
+
+			> i
+				font-size: $date-width / 2
+
+			> .day
+				position: absolute
+				top: 12px
+				left: 26px
+				color: crimson
+
+			> .month
+				display: block
 
 		> .milestone
 			position: relative
@@ -59,16 +73,16 @@ $milestone-width: 50px
 
 			> .description
 				position: relative
-				padding: 20px
 				margin-bottom: 20px
 				box-sizing: border-box
 				font-weight: bold
+				line-height: $major-width
+				padding-left: $photo-margin
 
 			> .photos
 				width: 100%
 				display: flex
 				flex-wrap: wrap
-				padding: 3px
 				box-sizing: border-box
 
 				> .photo
@@ -77,7 +91,7 @@ $milestone-width: 50px
 					height: 150px
 					display: inline-block
 					float: left
-					margin: 3px
+					margin: $photo-margin
 					flex-grow: 1
 					box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24)
 
