@@ -28,6 +28,7 @@ class App < Sinatra::Base
 	end
 	
 	get '/' do
+		@events = Event.all
 		slim :index
 	end
 end

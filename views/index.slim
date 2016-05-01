@@ -5,29 +5,30 @@ body
 
 	div class="timeline"
 
-		div class="event"
-			div class="date"
-				i class="fa fa-calendar-o"
-				span class="day"
-					| 24
-				span class="month"
-					| April
+		- @events.each do |event|
+			div class="event"
+				div class="date"
+					i class="fa fa-calendar-o"
+					span class="day"
+						| #{event.event_date.strftime("%d")}
+					span class="month"
+						| #{event.event_date.strftime("%b")}
 
-			div class="milestone"
-				div class="major"
+				div class="milestone"
+					div class="#{event.major ? 'major' : 'minor'}"
 
-			div class="content"
-				div class="description"
-					| hello something something
+				div class="content"
+					div class="description"
+						| #{event.description}
 
-				div class="photos"
-					div class="photo"
-					div class="photo"
-					div class="photo"
-					div class="photo"
-					div class="photo"
-					div class="photo"
-					div class="photo"
+					div class="photos"
+						div class="photo"
+						div class="photo"
+						div class="photo"
+						div class="photo"
+						div class="photo"
+						div class="photo"
+						div class="photo"
 
 
 footer
