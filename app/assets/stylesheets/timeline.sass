@@ -1,21 +1,6 @@
 $timeline-line-colour: #999
-
-$major-width: 40px
-$minor-width: 30px
-
 $date-width: 70px
 $milestone-width: 50px
-
-$photo-margin: 3px
-
-=milestone-style($size, $background)
-	position: relative
-	display: inline-block
-	width: $size
-	height: $size
-	background: white
-	border: 2px solid $background
-	border-radius: 50%
 
 .timeline
 	position: relative
@@ -62,12 +47,6 @@ $photo-margin: 3px
 				transform: translateX(-50%)
 				background: $timeline-line-colour
 
-			> .major
-				+milestone-style($major-width, #00CED1)
-
-			> .minor
-				+milestone-style($minor-width, #D9169F)
-
 		> .content
 			display: flex
 			flex-grow: 1
@@ -79,21 +58,9 @@ $photo-margin: 3px
 				margin-bottom: 20px
 				box-sizing: border-box
 				font-weight: bold
-				line-height: $major-width
-				padding-left: $photo-margin
 
 			> .photos
 				width: 100%
 				display: flex
 				flex-wrap: wrap
 				box-sizing: border-box
-
-				> .photo
-					background-color: white
-					width: 200px
-					height: 150px
-					display: inline-block
-					float: left
-					margin: $photo-margin
-					flex-grow: 1
-					box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24)
