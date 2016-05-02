@@ -34,22 +34,36 @@ class App < Sinatra::Base
 	end
 
 	get '/upload' do
+		@init_function = "Upload.Initialise"
 		slim :upload
 	end
 
 	post '/upload' do
-		event = Event.first
-		dirname = "./public/events/event_#{event.id}"
+		
+		date = DateTime.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
+		major = params[:major]
+		description = params[:description]
 
-		file = params[:file]
-		real_file = File.open(file[:tempfile], 'rb')
+		new_event = Event.new(description: description, major: major, event_date: date)
 
-		unless File.directory?(dirname)
-			FileUtils.mkdir_p(dirname)
+		if new_event.save! then
+
+			# make the event image folder if it doesnt exist
+			dirname = "./public/events/event_#{new_event.id}"
+			unless File.directory?(dirname)
+				FileUtils.mkdir_p(dirname)
+			end
+
+			params[:files].map do |file|
+
+				real_file = File.open(file[:tempfile], 'rb')
+
+				File.open("#{dirname}/#{file[:filename]}", 'wb') do |eventfile|
+					eventfile.write(real_file.read)
+				end
+			end
 		end
 
-		File.open("#{dirname}/#{file[:filename]}", 'wb') do |eventfile|
-			eventfile.write(real_file.read)
-		end
+		redirect to('/upload')
 	end
 end

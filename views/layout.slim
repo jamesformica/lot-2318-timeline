@@ -12,4 +12,10 @@ html
 		== javascript_tag 'vendor', :expand => true
 		== javascript_tag 'application', :expand => true
 
-	== yield
+	body
+		== yield
+
+		- if (@init_function)
+			javascript:
+				#{@init_function}($("body"));
+

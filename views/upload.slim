@@ -1,7 +1,45 @@
+- today = Date.today
+
 form action="/upload" method="POST" enctype="multipart/form-data"
 
-	label for="file"
-		| Upload an image
-	input type="file" accept=".png, .jpg" name="file" id="file"
+	h1 Event Upload
 
-	input type="submit"
+	ul class="ui-new-event"
+		li
+			label Event Date
+			select name="day"
+				- (1..31).each do |day|
+					option value="#{day}" selected=("selected" if today.day == day)
+						| #{day}
+
+			select name="month"
+				- (1..12).each do |month|
+					option value="#{month}" selected=("selected" if today.month == month)
+						| #{Date::MONTHNAMES[month]}
+
+			select name="year"
+				- (2015..today.year).each do |year|
+					option value="#{year}" selected=("selected" if today.year == year)
+						| #{year}
+
+		li
+			label Major or Minor
+			select name="major"
+				option value="true"
+					| Major
+				option value="false"
+					| Minor
+
+		li
+			label Description
+			textarea name="description" rows="4"
+
+	ul
+		li
+			label for="files"
+				| Select Images
+			input type="file" accept=".png, .jpg" name="files[]" id="files" multiple="true"
+
+		li
+			button type="submit"
+				| Upload

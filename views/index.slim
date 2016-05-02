@@ -1,31 +1,29 @@
 header
 	| Lot 2318 Dock Road
 
-body
+div class="timeline"
 
-	div class="timeline"
+	- @events.each do |event|
+		div class="event"
+			div class="date"
+				i class="fa fa-calendar-o"
+				span class="day"
+					| #{event.event_date.strftime("%d")}
+				span class="month"
+					| #{event.event_date.strftime("%b")}
 
-		- @events.each do |event|
-			div class="event"
-				div class="date"
-					i class="fa fa-calendar-o"
-					span class="day"
-						| #{event.event_date.strftime("%d")}
-					span class="month"
-						| #{event.event_date.strftime("%b")}
+			div class="milestone"
+				div class="#{event.major ? 'major' : 'minor'}"
 
-				div class="milestone"
-					div class="#{event.major ? 'major' : 'minor'}"
+			div class="content"
+				div class="description"
+					| #{event.description}
 
-				div class="content"
-					div class="description"
-						| #{event.description}
+				div class="photos"
+					- Dir.foreach("./public/events/event_#{event.id}") do |item|
+						- next if item == '.' or item == '..'
 
-					div class="photos"
-						- Dir.foreach("./public/events/event_#{event.id}") do |item|
-							- next if item == '.' or item == '..'
-
-							div class="photo" style="background-image: url('events/event_#{event.id}/#{item}')"
+						div class="photo" style="background-image: url('events/event_#{event.id}/#{item}')"
 
 
 footer

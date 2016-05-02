@@ -1,0 +1,61 @@
+$input-background-colour: #f2f2f2
+$input-forground-colour: #999
+$input-height: 36px
+
+form
+	width: 60%
+	min-width: 700px
+	background: white
+	margin: 20px auto
+	padding: 20px
+	text-align: center
+
+	ul
+		margin: 0
+		padding: 0
+
+		li
+			list-style: none
+			margin-bottom: 30px
+
+			label
+				display: block
+				color: $input-forground-colour
+				text-transform: uppercase
+
+
+	select, input[type="number"], textarea
+		height: $input-height
+		padding: 0 15px
+		line-height: $input-height
+		background-color: $input-background-colour
+		border: 0
+		outline: 0
+		color: $input-forground-colour
+		-webkit-appearance: none
+		-moz-appearance: none
+		appearance: none
+		border-radius: 0
+		margin-left: 3px
+		vertical-align: top
+
+	input[type="file"]
+		margin: 10px 0
+
+	textarea
+		height: auto
+		line-height: $input-height / 2
+		width: 400px
+		padding: 15px
+
+
+	button
+		height: $input-height
+		line-height: $input-height
+		background: #27B9D3
+		border: 0
+		outline: 0
+		color: white
+		width: 40%
+		text-transform: uppercase
+		cursor: pointer
