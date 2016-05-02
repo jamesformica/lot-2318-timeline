@@ -29,36 +29,45 @@ class App < Sinatra::Base
 	end
 	
 	get '/' do
-		@events = Event.order(:event_date)
+		@events = Event.order(event_date: :desc)
 		slim :index
 	end
 
 	get '/upload' do
-		@events = Event.order(:event_date)
+		@event = Event.new(major: true, event_date: Date.today)
+
 		slim :upload
 	end
 
-	post '/upload' do
+	get '/edit/:id' do |id|
+		@event = Event.find(id)
+
+		slim :upload
+	end
+
+	post '/upload/:id' do |id|
+
+		id = id.to_i
+		date = DateTime.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
+		major = params[:major]
+		description = params[:description]
+		
 		event = nil
-		existing_event = params[:existing_event]
 
-		if existing_event.to_s.length == 0 then
+		if id == -1 then
 			# create new event
-			date = DateTime.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
-			major = params[:major]
-			description = params[:description]
-
 			new_event = Event.new(description: description, major: major, event_date: date)
 
 			if new_event.save! then
 				event = new_event
 			end
-
 		else
 			# retrieve existing event
-			event = Event.find(existing_event.to_i)
+			existing_event = Event.find(id)
+			if existing_event.update(description: description, major: major, event_date: date) then
+				event = existing_event
+			end
 		end
-
 
 		if !event.nil? then
 			# make the event image folder if it doesnt exist
@@ -71,7 +80,13 @@ class App < Sinatra::Base
 			params[:files].map do |file|
 				real_file = File.open(file[:tempfile], 'rb')
 
-				File.open("#{dirname}/#{file[:filename]}", 'wb') do |eventfile|
+				filename = file[:filename]
+				basename = File.basename(filename, ".*")
+				extension = File.extname(filename)
+
+				new_filename = "#{dirname}/#{basename}_#{Time.now.to_i}#{extension}"
+
+				File.open(new_filename, 'wb') do |eventfile|
 					eventfile.write(real_file.read)
 				end
 			end

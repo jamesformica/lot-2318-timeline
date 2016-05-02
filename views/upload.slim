@@ -1,52 +1,37 @@
-- today = Date.today
-
-form action="/upload" method="POST" enctype="multipart/form-data"
+form action="/upload/#{@event.id || -1}" method="POST" enctype="multipart/form-data"
 
 	h1 Event Uploader
-
-	h2 Create Event
 
 	ul
 		li
 			label Event Date
 			select name="day"
 				- (1..31).each do |day|
-					option value="#{day}" selected=("selected" if today.day == day)
+					option value="#{day}" selected=("selected" if @event.event_date.day == day)
 						| #{day}
 
 			select name="month"
 				- (1..12).each do |month|
-					option value="#{month}" selected=("selected" if today.month == month)
+					option value="#{month}" selected=("selected" if @event.event_date.month == month)
 						| #{Date::MONTHNAMES[month]}
 
 			select name="year"
-				- (2015..today.year).each do |year|
-					option value="#{year}" selected=("selected" if today.year == year)
+				- (2015..Date.today.year).each do |year|
+					option value="#{year}" selected=("selected" if @event.event_date.year == year)
 						| #{year}
 
 		li
 			label Major or Minor
 			select name="major"
-				option value="true"
+				option value="true" selected=("selected" if @event.major)
 					| Major
-				option value="false"
+				option value="false" selected=("selected" if !@event.major)
 					| Minor
 
 		li
 			label Description
 			textarea name="description" rows="4"
-
-	h2 Select Existing Event
-
-	ul
-		li
-			select name="existing_event"
-				option selected="selected" value=""
-					| --none--
-				- @events.each do |event|
-					option value="#{event.id}"
-						| #{event.event_date.strftime("%B-%d-%Y")}
-
+				| #{@event.description}
 
 	h2 Select Images
 
@@ -57,3 +42,8 @@ form action="/upload" method="POST" enctype="multipart/form-data"
 		li
 			button type="submit"
 				| Upload
+
+		- if !@event.id.nil? then
+			li
+				button type="button" class="delete ui-delete" data-eventid="#{@event.id}"
+					| Delete Event
