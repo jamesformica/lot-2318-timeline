@@ -15,7 +15,7 @@ html
 	body
 		== yield
 
-		- if (@init_function)
+		- if @init_function
 			javascript:
 				#{@init_function}($("body"));
 

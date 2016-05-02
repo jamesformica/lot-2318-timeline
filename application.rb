@@ -34,20 +34,22 @@ class App < Sinatra::Base
 	end
 
 	get '/upload' do
+		@init_function = "Upload.Initialise"
 		@event = Event.new(major: true, event_date: Date.today)
 
 		slim :upload
 	end
 
 	get '/edit/:id' do |id|
+		@init_function = "Upload.Initialise"
 		@event = Event.find(id)
 
 		slim :upload
 	end
 
 	post '/upload/:id' do |id|
-
 		id = id.to_i
+
 		date = DateTime.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
 		major = params[:major]
 		description = params[:description]
@@ -93,5 +95,17 @@ class App < Sinatra::Base
 		end
 
 		redirect to('/upload')
+	end
+
+	post '/delete/:id' do |id|
+		id = id.to_i
+
+		if Event.find(id).destroy then
+			# delete the event folder and all the files
+			FileUtils.rm_rf("./public/events/event_#{id}")
+			return true
+		end
+
+		return false
 	end
 end

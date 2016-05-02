@@ -13,7 +13,7 @@ div class="timeline"
 					| #{event.event_date.strftime("%b")}
 
 			div class="milestone"
-				div class="#{event.major ? 'major' : 'minor'}"
+				a href="/edit/#{event.id}" class="#{event.major ? 'major' : 'minor'}"
 
 			div class="content"
 				div class="description"

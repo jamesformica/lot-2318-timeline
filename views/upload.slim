@@ -33,11 +33,10 @@ form action="/upload/#{@event.id || -1}" method="POST" enctype="multipart/form-d
 			textarea name="description" rows="4"
 				| #{@event.description}
 
-	h2 Select Images
-
 	ul
 		li
-			input type="file" accept=".png, .jpg" name="files[]" multiple="true"
+			label Select Images
+			input type="file" accept=".png, .jpg, .jgeg, .gif" name="files[]" multiple="true"
 
 		li
 			button type="submit"
@@ -45,5 +44,5 @@ form action="/upload/#{@event.id || -1}" method="POST" enctype="multipart/form-d
 
 		- if !@event.id.nil? then
 			li
-				button type="button" class="delete ui-delete" data-eventid="#{@event.id}"
+				button type="button" class="delete ui-delete-event" data-eventid="#{@event.id}"
 					| Delete Event
