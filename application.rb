@@ -29,7 +29,7 @@ class App < Sinatra::Base
 	end
 	
 	get '/' do
-		@events = Event.all
+		@events = Event.order(:event_date)
 		slim :index
 	end
 

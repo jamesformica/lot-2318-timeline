@@ -1,17 +1,16 @@
-$major-width: 40px
-$minor-width: 30px
+$milestone-size: 20px
 
-=milestone-style($size, $background)
+=milestone-style($size, $border-colour, $background)
 	position: relative
 	display: inline-block
 	width: $size
 	height: $size
-	background: white
-	border: 2px solid $background
+	background: $background
+	border: 2px solid $border-colour
 	border-radius: 50%
 
 .major
-	+milestone-style($major-width, #00CED1)
+	+milestone-style($milestone-size, black, white)
 
 .minor
-	+milestone-style($minor-width, #D9169F)
+	+milestone-style($milestone-size, black, black)
