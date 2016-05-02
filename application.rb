@@ -4,6 +4,7 @@ require 'sinatra/asset_pipeline'
 require 'sinatra/activerecord'
 require 'sinatra/reloader'
 require 'sinatra/base'
+require 'fileutils'
 require 'sass'
 require 'slim'
 
@@ -30,5 +31,25 @@ class App < Sinatra::Base
 	get '/' do
 		@events = Event.all
 		slim :index
+	end
+
+	get '/upload' do
+		slim :upload
+	end
+
+	post '/upload' do
+		event = Event.first
+		dirname = "./public/events/event_#{event.id}"
+
+		file = params[:file]
+		real_file = File.open(file[:tempfile], 'rb')
+
+		unless File.directory?(dirname)
+			FileUtils.mkdir_p(dirname)
+		end
+
+		File.open("#{dirname}/#{file[:filename]}", 'wb') do |eventfile|
+			eventfile.write(real_file.read)
+		end
 	end
 end

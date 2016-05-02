@@ -22,13 +22,10 @@ body
 						| #{event.description}
 
 					div class="photos"
-						div class="photo"
-						div class="photo"
-						div class="photo"
-						div class="photo"
-						div class="photo"
-						div class="photo"
-						div class="photo"
+						- Dir.foreach("./public/events/event_#{event.id}") do |item|
+							- next if item == '.' or item == '..'
+
+							div class="photo" style="background-image: url('events/event_#{event.id}/#{item}')"
 
 
 footer
