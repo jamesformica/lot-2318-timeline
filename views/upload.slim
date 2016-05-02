@@ -2,9 +2,11 @@
 
 form action="/upload" method="POST" enctype="multipart/form-data"
 
-	h1 Event Create/Upload
+	h1 Event Uploader
 
-	ul class="ui-new-event"
+	h2 Create Event
+
+	ul
 		li
 			label Event Date
 			select name="day"
@@ -34,11 +36,23 @@ form action="/upload" method="POST" enctype="multipart/form-data"
 			label Description
 			textarea name="description" rows="4"
 
+	h2 Select Existing Event
+
 	ul
 		li
-			label for="files"
-				| Select Images
-			input type="file" accept=".png, .jpg" name="files[]" id="files" multiple="true"
+			select name="existing_event"
+				option selected="selected" value=""
+					| --none--
+				- @events.each do |event|
+					option value="#{event.id}"
+						| #{event.event_date.strftime("%B-%d-%Y")}
+
+
+	h2 Select Images
+
+	ul
+		li
+			input type="file" accept=".png, .jpg" name="files[]" multiple="true"
 
 		li
 			button type="submit"
