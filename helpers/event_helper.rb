@@ -32,27 +32,10 @@ module EventHelper
 			end
 		end
 
-		if !event.nil? then
-			# make the event image folder if it doesnt exist
-			dirname = FileHelper.get_event_folder_path(event.id)
-			unless File.directory?(dirname)
-				FileUtils.mkdir_p(dirname)
-			end
-
-			# write the images to file in the event folder
-			params[:files].map do |file|
-				real_file = File.open(file[:tempfile], 'rb')
-
-				filename = file[:filename]
-				basename = File.basename(filename, ".*")
-				extension = File.extname(filename)
-
-				new_filename = "#{dirname}/#{basename}_#{Time.now.to_i}#{extension}"
-
-				File.open(new_filename, 'wb') do |eventfile|
-					eventfile.write(real_file.read)
-				end
-			end
+		if !event.nil? then	
+			# save files to corresponding event folder
+			dirname = FileHelper.create_event_folder(event.id)
+			FileHelper.save_files(params[:files], dirname)
 		end
 	end
 
