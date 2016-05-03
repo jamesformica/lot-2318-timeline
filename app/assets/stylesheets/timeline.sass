@@ -17,19 +17,27 @@
 	> .event
 		position: relative
 		width: 50%
-		height: 400px
 		padding: 0 $event-padding
 		box-sizing: border-box
 
-		&:before
+		&:after
 			content: ""
 			position: absolute
 			top: $milestone-top-margin
 			width: $milestone-size
 			height: $milestone-size
-			background-color: $timeline-line-colour
+			background-color: crimson
 			outline: 4px solid $background-colour
 			border-radius: 50%
+
+		> .dates
+			position: absolute
+			margin-top: $milestone-top-margin
+			color: $timeline-line-colour
+			line-height: $milestone-size
+
+			> i
+				margin-right: 10px
 
 		> .content
 			position: relative
@@ -42,7 +50,7 @@
 				content: ""
 				position: absolute
 				top: $milestone-top-margin + $milestone-size / 2
-				width: $event-padding - ($milestone-size / 2) - ($milestone-outline-size * 2)
+				width: $event-padding - ($milestone-size / 2) - $milestone-outline-size
 				height: 1px
 				background-color: $timeline-line-colour
 
@@ -54,15 +62,32 @@
 				border-top-left-radius: $event-border-radius
 				border-top-right-radius: $event-border-radius
 
+			> .description
+				padding: 20px
+
+				> a
+					display: block
+					margin-top: 20px
+
+					> i
+						margin-right: 10px
+						font-size: 16px
+
 		&.major
-			&:before
-				background-color: $primary-colour
+			&:after
+				background-color: $background-colour
+				border: 2px solid crimson
 
 		&.right
 			margin-left: 50%
 
-			&:before
-				left: $milestone-size / -2
+			&:after
+				left: 0
+				transform: translateX(-50%)
+
+			> .dates
+				left: 0
+				transform: translateX(calc(-100% - 20px))
 
 			> .content
 				&:before
@@ -71,8 +96,13 @@
 		&.left
 			margin-left: 0
 
-			&:before
-				right: $milestone-size / -2
+			&:after
+				right: 0
+				transform: translateX(50%)
+
+			> .dates
+				right: 0
+				transform: translateX(calc(100% + 20px))
 
 			> .content
 				&:before

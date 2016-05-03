@@ -7,6 +7,7 @@ require 'sinatra/base'
 require 'fileutils'
 require 'sass'
 require 'slim'
+require 'active_support/core_ext/integer/inflections'
 
 class App < Sinatra::Base
 

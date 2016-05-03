@@ -7,29 +7,20 @@ div class="timeline"
 
  	- @events.each_with_index do |event, index|
  		div class="event #{(index % 2 == 0 ? "right" : "left")} #{("major" if event.major)}"
+
+ 			div class="dates"
+ 				i class="fa fa-calendar-o"
+ 				span = event.event_date.strftime("%b #{event.event_date.day.ordinalize}")
+
  			div class="content"
  				div class="random-image" style="background-image: url('#{FileHelper.get_random_event_image(event.id)}')"
 
-/ 			div class="date"
-/ 				i class="fa fa-calendar-o"
-/ 				span class="day"
-/ 					| #{event.event_date.strftime("%d")}
-/ 				span class="month"
-/ 					| #{event.event_date.strftime("%b")}
+ 				div class="description"
+ 					| #{event.description}
 
-/ 			div class="milestone"
-/ 				a href="/upload/#{event.id}" class="#{event.major ? 'major' : 'minor'}"
+	 				a href="#"
+	 					i class="fa fa-camera"
+	 					| Event Photos
 
-/ 			div class="content"
-/ 				div class="description"
-/ 					| #{event.description}
-
-/ 				div class="photos"
-/ 					- Dir.foreach(FileHelper.get_event_folder_path(event.id)) do |item|
-/ 						- next if item == '.' or item == '..'
-
-/ 						div class="photo" style="background-image: url('#{FileHelper.get_image_path(event.id, item)}')"
-
-
-/ footer
-/ 	| made by james formica
+footer
+ 	| made by james formica
