@@ -42,7 +42,7 @@ module EventHelper
 	def self.delete_event(id)
 		if Event.find(id).destroy then
 			# delete the event folder and all the files
-			FileUtils.rm_rf("./public/events/event_#{id}")
+			FileUtils.rm_rf(FileHelper.get_event_folder_path(id))
 		end
 	end
 end
