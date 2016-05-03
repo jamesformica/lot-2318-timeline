@@ -33,79 +33,20 @@ class App < Sinatra::Base
 		slim :index
 	end
 
-	get '/upload' do
-		@init_function = "Upload.Initialise"
-		@event = Event.new(major: true, event_date: Date.today)
+	get '/upload/?:id?' do |id|
+		@init_function = EventHelper::UPLOAD_JS_FUNCTION
+		@event = EventHelper.get_or_create_event(id)
 
 		slim :upload
 	end
 
-	get '/edit/:id' do |id|
-		@init_function = "Upload.Initialise"
-		@event = Event.find(id)
+	post '/upload/?:id?' do |id|
+		EventHelper.process_upload(id, params)
 
-		slim :upload
-	end
-
-	post '/upload/:id' do |id|
-		id = id.to_i
-
-		date = DateTime.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
-		major = params[:major]
-		description = params[:description]
-		
-		event = nil
-
-		if id == -1 then
-			# create new event
-			new_event = Event.new(description: description, major: major, event_date: date)
-
-			if new_event.save! then
-				event = new_event
-			end
-		else
-			# retrieve existing event
-			existing_event = Event.find(id)
-			if existing_event.update(description: description, major: major, event_date: date) then
-				event = existing_event
-			end
-		end
-
-		if !event.nil? then
-			# make the event image folder if it doesnt exist
-			dirname = "./public/events/event_#{event.id}"
-			unless File.directory?(dirname)
-				FileUtils.mkdir_p(dirname)
-			end
-
-			# write the images to file in the event folder
-			params[:files].map do |file|
-				real_file = File.open(file[:tempfile], 'rb')
-
-				filename = file[:filename]
-				basename = File.basename(filename, ".*")
-				extension = File.extname(filename)
-
-				new_filename = "#{dirname}/#{basename}_#{Time.now.to_i}#{extension}"
-
-				File.open(new_filename, 'wb') do |eventfile|
-					eventfile.write(real_file.read)
-				end
-			end
-		end
-
-		redirect to('/upload')
+		redirect to('/')
 	end
 
 	post '/delete/:id' do |id|
-		id = id.to_i
-
-		if Event.find(id).destroy then
-			# delete the event folder and all the files
-			FileUtils.rm_rf("./public/events/event_#{id}")
-			return true
-		end
-
-		return false
+		EventHelper.delete_event(id.to_i)
 	end
 end

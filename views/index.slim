@@ -1,5 +1,6 @@
 header
-	| Lot 2318 Dock Road
+	a href="/upload"
+		| Lot 2318 Dock Road
 
 div class="timeline"
 
@@ -13,17 +14,17 @@ div class="timeline"
 					| #{event.event_date.strftime("%b")}
 
 			div class="milestone"
-				a href="/edit/#{event.id}" class="#{event.major ? 'major' : 'minor'}"
+				a href="/upload/#{event.id}" class="#{event.major ? 'major' : 'minor'}"
 
 			div class="content"
 				div class="description"
 					| #{event.description}
 
 				div class="photos"
-					- Dir.foreach("./public/events/event_#{event.id}") do |item|
+					- Dir.foreach(FileHelper.get_event_folder_path(event.id)) do |item|
 						- next if item == '.' or item == '..'
 
-						div class="photo" style="background-image: url('events/event_#{event.id}/#{item}')"
+						div class="photo" style="background-image: url('#{FileHelper.get_image_path(event.id, item)}')"
 
 
 footer
