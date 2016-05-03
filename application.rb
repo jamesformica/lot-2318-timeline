@@ -30,6 +30,15 @@ class App < Sinatra::Base
 	
 	get '/' do
 		@events = Event.order(event_date: :desc)
+		
+		first_event = @events.first
+
+		puts Dir[FileHelper.get_event_folder_path(first_event.id)]
+		random_file = Dir["#{FileHelper.get_event_folder_path(first_event.id)}/*"].sample
+		random_file = File.basename(random_file)
+
+		@latest_image_file = FileHelper.get_image_path(first_event.id, random_file)
+
 		slim :index
 	end
 

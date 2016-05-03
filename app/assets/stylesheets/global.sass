@@ -1,12 +1,13 @@
-$header-height: 55px
+$header-height: 250px
 
 $footer-height: 60px
 
 html
 	font-family: Roboto
-	background: #f2f2f2
+	background: white
 
 header
+	position: relative
 	font-family: Pacifico
 	font-size: $header-height / 2
 	text-align: center
@@ -16,7 +17,14 @@ header
 	background: #999
 
 	a
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
 		text-decoration: none
+		background-size: cover
+		background-position: center
 
 		&:visited
 			color: white
