@@ -1,69 +1,67 @@
-$timeline-line-colour: #999
-$date-width: 70px
-$milestone-width: 50px
-$event-padding-bottom: 100px
+@import _vars
 
 .timeline
 	position: relative
 	width: 100%
-	margin-top: 50px
+
+	&:before
+		content: ""
+		position: absolute
+		width: 1px
+		height: 100%
+		left: 50%
+		transform: translateX(-50%)
+		background-color: $timeline-line-colour
+
 
 	> .event
-		display: flex
-		width: 100%
-		align-items: stretch
-		padding-bottom: $event-padding-bottom
+		position: relative
+		width: 50%
+		height: 400px
+		padding: 0 50px
+		box-sizing: border-box
 
-		> .date
+		&.right
+			margin-left: 50%
+
+			&:before
+				left: $milestone-size / -2
+
+			> .content
+				&:before
+					border-right-color: white
+					left: $content-ear-size * -2
+
+		&.left
+			margin-left: 0
+
+			&:before
+				right: $milestone-size / -2
+
+			> .content
+				&:before
+					border-left-color: white
+					right: $content-ear-size * -2
+
+		&:before
+			content: ""
+			position: absolute
+			top: $milestone-top-margin
+			width: $milestone-size
+			height: $milestone-size
+			background: $timeline-line-colour
+			outline: 4px solid $background-colour
+			border-radius: 50%
+
+		> .content
 			position: relative
-			display: inline-block
-			width: $date-width
-			text-align: center
-			flex-shrink: 0
-
-			> i
-				font-size: $date-width / 2
-
-			> .day
-				position: absolute
-				top: 12px
-				left: 26px
-				color: crimson
-
-			> .month
-				display: block
-
-		> .milestone
-			position: relative
-			display: inline-block
-			width: $milestone-width
-			text-align: center
-			flex-shrink: 0
+			height: 100%
+			background-color: white
 
 			&:before
 				content: ""
 				position: absolute
-				top: 0
-				width: 1px
-				height: calc(100% + #{$event-padding-bottom})
-				left: 50%
-				transform: translateX(-50%)
-				background: $timeline-line-colour
-
-		> .content
-			display: flex
-			flex-grow: 1
-			flex-direction: column
-			padding: 0 20px
-
-			> .description
-				position: relative
-				margin-bottom: 20px
-				box-sizing: border-box
-				font-weight: bold
-
-			> .photos
-				width: 100%
-				display: flex
-				flex-wrap: wrap
-				box-sizing: border-box
+				top: $milestone-top-margin + $milestone-size / 2
+				border: $content-ear-size solid transparent
+				border-top-color: white
+					
