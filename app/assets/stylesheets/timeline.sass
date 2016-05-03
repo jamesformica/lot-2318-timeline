@@ -18,8 +18,45 @@
 		position: relative
 		width: 50%
 		height: 400px
-		padding: 0 50px
+		padding: 0 $event-padding
 		box-sizing: border-box
+
+		&:before
+			content: ""
+			position: absolute
+			top: $milestone-top-margin
+			width: $milestone-size
+			height: $milestone-size
+			background-color: $timeline-line-colour
+			outline: 4px solid $background-colour
+			border-radius: 50%
+
+		> .content
+			position: relative
+			height: 100%
+			background-color: white
+			box-shadow: 0 1px 2px 0 rgba(0,0,0,0.22)
+			border-radius: $event-border-radius
+
+			&:before
+				content: ""
+				position: absolute
+				top: $milestone-top-margin + $milestone-size / 2
+				width: $event-padding - ($milestone-size / 2) - ($milestone-outline-size * 2)
+				height: 1px
+				background-color: $timeline-line-colour
+
+			> .random-image
+				width: 100%
+				height: 300px
+				background-size: cover
+				background-position: center
+				border-top-left-radius: $event-border-radius
+				border-top-right-radius: $event-border-radius
+
+		&.major
+			&:before
+				background-color: $primary-colour
 
 		&.right
 			margin-left: 50%
@@ -29,8 +66,7 @@
 
 			> .content
 				&:before
-					border-right-color: white
-					left: $content-ear-size * -2
+					left: ($event-padding - ($milestone-size / 2) - $milestone-outline-size) * -1
 
 		&.left
 			margin-left: 0
@@ -40,28 +76,5 @@
 
 			> .content
 				&:before
-					border-left-color: white
-					right: $content-ear-size * -2
-
-		&:before
-			content: ""
-			position: absolute
-			top: $milestone-top-margin
-			width: $milestone-size
-			height: $milestone-size
-			background: $timeline-line-colour
-			outline: 4px solid $background-colour
-			border-radius: 50%
-
-		> .content
-			position: relative
-			height: 100%
-			background-color: white
-
-			&:before
-				content: ""
-				position: absolute
-				top: $milestone-top-margin + $milestone-size / 2
-				border: $content-ear-size solid transparent
-				border-top-color: white
+					right: ($event-padding - ($milestone-size / 2) - $milestone-outline-size) * -1
 					

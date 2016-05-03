@@ -35,4 +35,14 @@ module FileHelper
 			end
 		end
 	end
+
+	def self.get_random_event_image(event_id)
+		dir = FileHelper.get_event_folder_path(event_id)
+		
+		random_file_path = Dir["#{dir}/*"].sample
+
+		random_file_name = File.basename(random_file_path)
+
+		return FileHelper.get_image_path(event_id, random_file_name)
+	end
 end

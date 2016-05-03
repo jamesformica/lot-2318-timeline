@@ -6,8 +6,10 @@ header
 div class="timeline"
 
  	- @events.each_with_index do |event, index|
- 		div class="event #{(index % 2 == 0 ? "right" : "left")}"
+ 		div class="event #{(index % 2 == 0 ? "right" : "left")} #{("major" if event.major)}"
  			div class="content"
+ 				div class="random-image" style="background-image: url('#{FileHelper.get_random_event_image(event.id)}')"
+
 / 			div class="date"
 / 				i class="fa fa-calendar-o"
 / 				span class="day"
