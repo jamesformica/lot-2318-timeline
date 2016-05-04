@@ -43,7 +43,7 @@ class App < Sinatra::Base
   get '/gallery/:id' do |id|
     @event_id = id.to_i
 
-    slim :gallery
+    slim :gallery, layout: false
   end
 
 	get '/upload/?:id?' do |id|
