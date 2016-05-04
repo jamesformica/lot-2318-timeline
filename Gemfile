@@ -8,8 +8,6 @@ gem 'sinatra', '1.4.7'
 
 gem 'rake'
 
-gem 'sinatra-assetpack', '0.3.5', :require => 'sinatra/assetpack'
-
 gem 'sinatra-asset-pipeline'
 
 gem 'sinatra-contrib', '1.4.7'

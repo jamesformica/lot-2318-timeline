@@ -11,3 +11,5 @@ app/assets/javascripts
 db/*.sqlite3
 
 public/events
+
+.idea
