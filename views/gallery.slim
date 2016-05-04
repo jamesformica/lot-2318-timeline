@@ -3,7 +3,7 @@
 div class="gallery"
     div class="roller ui-roller" data-count="#{Dir["#{dir}/*"].length}"
         - Dir.foreach(dir) do |item|
-            - next if item == '.' or item == '..'
+            - next if File.directory? item
             div class="photo" style="background-image: url('#{FileHelper.get_image_path(@event_id, item)}')"
 
     div class="nav left ui-move-prev"

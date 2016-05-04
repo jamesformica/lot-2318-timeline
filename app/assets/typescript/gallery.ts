@@ -2,18 +2,23 @@ module Gallery {
     "use strict";
 
     export function Initialise($container: JQuery): void {
-        new Gallery($container);
+        new GalleryScroller($container);
     }
 
-    class Gallery {
+    class GalleryScroller {
         private photoCounter: number = 0;
         private maxPhotos: number;
+
         private $roller: JQuery;
+        private $body: JQuery;
 
         constructor(private $container: JQuery) {
+            this.$body = $("body");
             this.$roller = this.$container.find(".ui-roller");
             this.maxPhotos = Number(this.$roller.data("count")) - 1; // 0 index it
+
             this.AttachEvents();
+            this.ToggleBodyScroll(false);
         }
 
         private AttachEvents(): void {
@@ -44,10 +49,15 @@ module Gallery {
 
         private CloseGallery(): void {
             this.$container.parent().empty();
+            this.ToggleBodyScroll(true);
         }
 
         private MoveRoller(): void {
             this.$roller.css("transform", "translateX(" + -100 * this.photoCounter + "%)");
+        }
+
+        private ToggleBodyScroll(scroll: boolean): void {
+            this.$body.toggleClass("no-scroll", !scroll);
         }
     }
 }
