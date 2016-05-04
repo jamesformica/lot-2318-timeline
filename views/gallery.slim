@@ -1,6 +1,8 @@
-div class="gallery ui-gallery-initialise"
-    div class="roller ui-roller"
-        - Dir.foreach(FileHelper.get_event_folder_path(@event_id)) do |item|
+- dir = FileHelper.get_event_folder_path(@event_id)
+
+div class="gallery"
+    div class="roller ui-roller" data-count="#{Dir["#{dir}/*"].length}"
+        - Dir.foreach(dir) do |item|
             - next if item == '.' or item == '..'
             div class="photo" style="background-image: url('#{FileHelper.get_image_path(@event_id, item)}')"
 

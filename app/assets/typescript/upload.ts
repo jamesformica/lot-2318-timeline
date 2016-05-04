@@ -1,8 +1,8 @@
 module Upload {
 	"use strict";
 
-	export function Initialise($body: JQuery): void {
-		var $deleteEvent = $body.find(".ui-delete-event");
+	export function Initialise($container: JQuery): void {
+		var $deleteEvent = $container.find(".ui-delete-event");
 
 		$deleteEvent.click(() => {
 			var result = confirm("Are you sure you want to delete this event?");

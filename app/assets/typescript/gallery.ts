@@ -2,27 +2,52 @@ module Gallery {
     "use strict";
 
     export function Initialise($container: JQuery): void {
-        var photoCounter = 0;
-        var $roller = $container.find(".ui-roller");
+        new Gallery($container);
+    }
 
-        $container.find(".ui-move-next").click(() => {
-            photoCounter++;
-            $roller.css("transform", "translateX(calc(-100% * " + photoCounter + "))");
-        });
+    class Gallery {
+        private photoCounter: number = 0;
+        private maxPhotos: number;
+        private $roller: JQuery;
 
-        $container.find(".ui-move-prev").click(() => {
-            photoCounter--;
-            $roller.css("transform", "translateX(calc(-100% * " + photoCounter + "))");
-        });
+        constructor(private $container: JQuery) {
+            this.$roller = this.$container.find(".ui-roller");
+            this.maxPhotos = Number(this.$roller.data("count")) - 1; // 0 index it
+            this.AttachEvents();
+        }
 
-        $container.find(".ui-close").click(() => {
-            $container.parent().empty();
-        });
+        private AttachEvents(): void {
+            this.$container.find(".ui-move-next").click(() => {
+                if (this.photoCounter < this.maxPhotos) {
+                    this.photoCounter++;
+                    this.MoveRoller();
+                }
+            });
 
-        $container.click((e) => {
-            if ($(e.target).hasClass("gallery")) {
-                $container.parent().empty();
-            }
-        });
+            this.$container.find(".ui-move-prev").click(() => {
+                if (this.photoCounter > 0) {
+                    this.photoCounter--;
+                    this.MoveRoller();
+                }
+            });
+
+            this.$container.find(".ui-close").click(() => {
+                this.CloseGallery();
+            });
+
+            this.$container.click((e) => {
+                if ($(e.target).hasClass("gallery")) {
+                    this.CloseGallery();
+                }
+            });
+        }
+
+        private CloseGallery(): void {
+            this.$container.parent().empty();
+        }
+
+        private MoveRoller(): void {
+            this.$roller.css("transform", "translateX(" + -100 * this.photoCounter + "%)");
+        }
     }
 }
