@@ -1,6 +1,6 @@
 doctype html
 html
-	
+
 	head
 		title New Application
 
@@ -12,11 +12,6 @@ html
 		== javascript_tag 'vendor', :expand => true
 		== javascript_tag 'application', :expand => true
 
-	body
-		== yield
-
-		- if @init_function
-			javascript:
-				$(document).ready(function() {
-                    #{@init_function}($("body"));
-				});
+    == slim :js_layout, layout: false do
+	    body
+		    == yield

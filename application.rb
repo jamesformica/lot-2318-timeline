@@ -13,6 +13,7 @@ class App < Sinatra::Base
 
   INDEX_JS_FUNCTION = "Index.Initialise"
   UPLOAD_JS_FUNCTION = "Upload.Initialise"
+  GALLERY_JS_FUNCTION = "Gallery.Initialise"
 
 	(Dir['./models/*.rb'].sort).each do |file|
 		require file
@@ -41,9 +42,10 @@ class App < Sinatra::Base
   end
 
   get '/gallery/:id' do |id|
+    @init_function = App::GALLERY_JS_FUNCTION
     @event_id = id.to_i
 
-    slim :gallery, layout: false
+    slim :gallery, layout: :js_layout
   end
 
 	get '/upload/?:id?' do |id|
