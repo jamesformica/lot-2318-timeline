@@ -11,6 +11,9 @@ require 'active_support/core_ext/integer/inflections'
 
 class App < Sinatra::Base
 
+  INDEX_JS_FUNCTION = "Index.Initialise"
+  UPLOAD_JS_FUNCTION = "Upload.Initialise"
+
 	(Dir['./models/*.rb'].sort).each do |file|
 		require file
 	end
@@ -30,14 +33,21 @@ class App < Sinatra::Base
 	end
 	
 	get '/' do
+    @init_function = App::INDEX_JS_FUNCTION
 		@events = Event.order(event_date: :desc)
 		@latest_image_file = FileHelper.get_random_event_image(@events.first.id)
 
 		slim :index
-	end
+  end
+
+  get '/gallery/:id' do |id|
+    @event_id = id.to_i
+
+    slim :gallery
+  end
 
 	get '/upload/?:id?' do |id|
-		@init_function = EventHelper::UPLOAD_JS_FUNCTION
+		@init_function = App::UPLOAD_JS_FUNCTION
 		@event = EventHelper.get_or_create_event(id)
 
 		slim :upload
@@ -51,5 +61,5 @@ class App < Sinatra::Base
 
 	post '/delete/:id' do |id|
 		EventHelper.delete_event(id.to_i)
-	end
+  end
 end

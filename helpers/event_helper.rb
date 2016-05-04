@@ -1,7 +1,5 @@
 module EventHelper
 
-	UPLOAD_JS_FUNCTION = "Upload.Initialise"
-
 	def self.get_or_create_event(id)
 		if id.nil? then
 			return Event.new(major: true, event_date: Date.today)

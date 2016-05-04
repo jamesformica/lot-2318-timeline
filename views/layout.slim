@@ -17,5 +17,6 @@ html
 
 		- if @init_function
 			javascript:
-				#{@init_function}($("body"));
-
+				$(document).ready(function() {
+                    #{@init_function}($("body"));
+				});
