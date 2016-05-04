@@ -1,8 +1,11 @@
 header
-	a class="nashville" href="/upload" style="background-image: url('#{@latest_image_file}')"
+	div class="hero nashville" href="/upload" style="background-image: url('#{@latest_image_file}')"
 	span Lot 2318 Dock Road
+	
 	div class="left sleeve"
 	div class="right sleeve"
+	
+	a class="sneaky-cheeky" href="/upload"
 
 div class="timeline"
 
@@ -15,6 +18,7 @@ div class="timeline"
 
  			div class="content"
  				div class="random-image" style="background-image: url('#{FileHelper.get_random_event_image(event.id)}')"
+ 					a class="sneaky-cheeky" href="/upload/#{event.id}"
 
  				div class="description"
  					| #{event.description}
