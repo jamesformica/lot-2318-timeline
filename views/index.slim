@@ -1,5 +1,5 @@
 header
-	div class="hero nashville" href="/upload" style="background-image: url('#{@latest_image_file}')"
+	div class="hero nashville" style="background-image: url('#{@latest_image_file}')"
 	span Lot 2318 Dock Road
 	
 	div class="left sleeve"
@@ -10,18 +10,18 @@ header
 div class="timeline"
 
  	- @events.each_with_index do |event, index|
- 		div class="event #{(index % 2 == 0 ? "right" : "left")} #{("major" if event.major)}"
+ 		div class="event #{(index % 2 == 0 ? 'right' : 'left')} #{('major' if event.major)}"
 
  			div class="dates"
  				i class="fa fa-calendar-o"
  				span = event.event_date.strftime("%b #{event.event_date.day.ordinalize}")
 
  			div class="content"
- 				div class="random-image" style="background-image: url('#{FileHelper.get_random_event_image(event.id)}')"
- 					a class="sneaky-cheeky" href="/upload/#{event.id}"
+				div class="random-image" style="background-image: url('#{FileHelper.get_random_event_image(event.id)}')"
+					a class="sneaky-cheeky" href="/upload/#{event.id}"
 
  				div class="description"
- 					| #{event.description}
+					| #{event.description}
 
 	 				a class="ui-see-photos" data-eventid="#{event.id}"
 	 					i class="fa fa-camera"
@@ -30,4 +30,4 @@ div class="timeline"
 div class="ui-gallery"
 
 footer
- 	| made by James Formica
+	| made by James Formica

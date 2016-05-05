@@ -25,7 +25,7 @@ module FileHelper
 			real_file = File.open(file[:tempfile], 'rb')
 
 			filename = file[:filename]
-			basename = File.basename(filename, ".*")
+			basename = File.basename(filename, '.*')
 			extension = File.extname(filename)
 
 			new_filename = "#{dirname}/#{basename}_#{Time.now.to_i}#{extension}"
