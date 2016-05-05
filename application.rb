@@ -11,9 +11,9 @@ require 'active_support/core_ext/integer/inflections'
 
 class App < Sinatra::Base
 
-	INDEX_JS_FUNCTION = "Index.Initialise"
-	UPLOAD_JS_FUNCTION = "Upload.Initialise"
-	GALLERY_JS_FUNCTION = "Gallery.Initialise"
+	INDEX_JS_FUNCTION = 'Index.Initialise'
+	UPLOAD_JS_FUNCTION = 'Upload.Initialise'
+	GALLERY_JS_FUNCTION = 'Gallery.Initialise'
 
 	(Dir['./models/*.rb'].sort).each do |file|
 		require file
