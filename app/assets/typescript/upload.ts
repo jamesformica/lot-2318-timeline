@@ -6,7 +6,7 @@ module Upload {
 
 		$deleteEvent.click(() => {
 			var result = confirm("Are you sure you want to delete this event?");
-			
+
 			if (result) {
 				var eventID = $deleteEvent.data("eventid");
 

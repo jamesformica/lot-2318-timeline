@@ -10,7 +10,7 @@ module FileHelper
 
 	def self.create_event_folder(event_id)
 		dirname = FileHelper.get_event_folder_path(event_id)
-		
+
 		# make the event image folder if it doesnt exist
 		unless File.directory?(dirname)
 			FileUtils.mkdir_p(dirname)
@@ -38,7 +38,7 @@ module FileHelper
 
 	def self.get_random_event_image(event_id)
 		dir = FileHelper.get_event_folder_path(event_id)
-		
+
 		random_file_path = Dir["#{dir}/*"].sample
 
 		random_file_name = File.basename(random_file_path)

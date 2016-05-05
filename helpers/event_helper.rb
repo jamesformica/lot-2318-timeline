@@ -12,7 +12,7 @@ module EventHelper
 		date = DateTime.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
 		major = params[:major]
 		description = params[:description]
-		
+
 		event = nil
 
 		if id.nil? then
@@ -30,7 +30,7 @@ module EventHelper
 			end
 		end
 
-		if !event.nil? & params[:files] then	
+		if !event.nil? & params[:files] then
 			# save files to corresponding event folder
 			dirname = FileHelper.create_event_folder(event.id)
 			FileHelper.save_files(params[:files], dirname)
