@@ -9,6 +9,7 @@
 		position: absolute
 		width: 1px
 		height: 100%
+		top: 0
 		left: 50%
 		transform: translateX(-50%)
 		background-color: $timeline-line-colour
@@ -108,4 +109,30 @@
 			> .content
 				&:before
 					right: ($event-padding - ($milestone-size / 2) - $milestone-outline-size) * -1
-					
+
+	@media (max-width: 768px)
+		padding-top: 50px
+
+		> .event
+			width: 90%
+			margin-left: auto !important
+			margin-right: auto !important
+			margin-bottom: 50px
+			padding: 0
+
+			&:after
+				display: none
+
+			> .dates
+				top: 0 !important
+				left: 0 !important
+				right: 0 !important
+				margin-top: 0 !important
+				transform: translateY(-120%) !important
+				background: $background-colour !important
+				text-align: center
+
+			> .content
+				&:before
+					display: none
+
