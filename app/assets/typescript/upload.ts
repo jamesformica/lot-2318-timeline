@@ -12,7 +12,7 @@ module Upload {
 
 				// send ajax request to delete the event
 				$.ajax({
-					url: "/delete/" + eventID,
+					url: "/delete/" + eventID.toString(),
 					method: "POST"
 				}).done(() => {
 					location.href = "/";

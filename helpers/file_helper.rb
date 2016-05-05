@@ -5,7 +5,7 @@ module FileHelper
 
 
 	def self.get_image_path(event_id, filename)
-		return "events/event_#{event_id}/#{filename}"
+		return "/events/event_#{event_id}/#{filename}"
 	end
 
 	def self.create_event_folder(event_id)

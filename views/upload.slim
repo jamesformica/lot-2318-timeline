@@ -46,3 +46,21 @@ form action="/upload/#{@event.id}" method="POST" enctype="multipart/form-data"
 			li
 				button type="button" class="delete ui-delete-event" data-eventid="#{@event.id}"
 					| Delete Event
+
+	- if !@event.id.nil?
+		h1 Remove Photos
+
+		p class="notify"
+			i class="fa fa-warning"
+			| Deleting any of these photos will result in a page reload and you will lose any changes made above
+
+		ul
+			- Dir.foreach(FileHelper.get_event_folder_path(@event.id)) do |item|
+				- next if File.directory? item
+				li class="remove-photo"
+
+					img src="#{FileHelper.get_image_path(@event.id, item)}" class="little-photo"
+
+					p
+						= item
+						i class="fa fa-trash"
