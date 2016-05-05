@@ -1,4 +1,4 @@
-form action="/upload/#{@event.id}" method="POST" enctype="multipart/form-data"
+form action="/upload/#{@event.id}" method="POST" enctype="multipart/form-data" data-eventid="#{@event.id}"
 
 	h1 Event Uploader
 
@@ -23,9 +23,9 @@ form action="/upload/#{@event.id}" method="POST" enctype="multipart/form-data"
 		li
 			label Major or Minor
 			select name="major"
-				option value="true" selected=("selected" if @event.major)
+				option value="true" selected=('selected' if @event.major)
 					| Major
-				option value="false" selected=("selected" if !@event.major)
+				option value="false" selected=('selected' if !@event.major)
 					| Minor
 
 		li
@@ -44,7 +44,7 @@ form action="/upload/#{@event.id}" method="POST" enctype="multipart/form-data"
 
 		- if !@event.id.nil? then
 			li
-				button type="button" class="delete ui-delete-event" data-eventid="#{@event.id}"
+				button type="button" class="delete ui-delete-event"
 					| Delete Event
 
 	- if !@event.id.nil?
@@ -63,4 +63,4 @@ form action="/upload/#{@event.id}" method="POST" enctype="multipart/form-data"
 
 					p
 						= item
-						i class="fa fa-trash"
+						i class="fa fa-trash ui-delete-photo" data-filename="#{item}"

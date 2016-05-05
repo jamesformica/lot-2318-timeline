@@ -64,4 +64,8 @@ class App < Sinatra::Base
 	post '/delete/:id' do |id|
 		EventHelper.delete_event(id.to_i)
 	end
+
+	post '/deleteimage' do
+		FileHelper.delete_event_image(params[:event_id], params[:file_name])
+	end
 end

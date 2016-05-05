@@ -45,4 +45,12 @@ module FileHelper
 
 		return FileHelper.get_image_path(event_id, random_file_name)
 	end
+
+	def self.delete_event_folder(event_id)
+		FileUtils.rm_rf(FileHelper.get_event_folder_path(event_id))
+	end
+
+	def self.delete_event_image(event_id, filename)
+		FileUtils.rm("#{FileHelper.get_event_folder_path(event_id)}/#{filename}")
+	end
 end
