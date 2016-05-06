@@ -48,8 +48,8 @@ module Gallery {
 		}
 
 		private CloseGallery(): void {
-			this.$container.parent().empty();
 			this.ToggleBodyScroll(true);
+			Index.Controller.ToggleGallery(false);
 		}
 
 		private MoveRoller(): void {
