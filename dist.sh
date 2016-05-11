@@ -1,49 +1,46 @@
 #!/bin/bash
 
-declare -a IGNOREFILES=(".gitignore" "dist.sh" "npm-debug.log" "package.json")
-declare -a IGNOREFOLDERS=(".git" ".idea" ".sass-cache" "app/assets/typescript" "dist" "node_modules")
+clear
+declare -a INCLUDEFOLDERS=("app" "config" "db" "helpers" "models" "public" "vendor" "views")
+declare -a INCLUDEFILES=("application.rb" "config.ru" "Gemfile" "Gemfile.lock" "Rakefile")
 
-containsElement() {
-	local e
+echo "\n*** Selecting the chosen files for distribution ***"
 
-	for e in "${@:2}"
-	do
-		if [ "$e" == "$1" ]
-			then
-			return 0
-		fi
-	done
+if [ -d "$PWD/dist" ]
+	then
+	echo "- Emptying and creating dist directory"
+	rm -rf "$PWD/dist"
+	mkdir "$PWD/dist"
+else
+	echo "- Creating dist directory"
+	mkdir "$PWD/dist"
+fi
 
-	return 1
-}
-
-for f in $PWD/*
+echo "\n*** Included Folders ***"
+for f in ${INCLUDEFOLDERS[@]}
 do
-	if [ -d "$f" ]
+	FOLDER=$f
+
+	if [ -d "$FOLDER" ]
 		then
-		FOLDERNAME="${f##*/}"
-
-		containsElement $FOLDERNAME ${IGNOREFOLDERS[@]}
-
-		if [ $? == 1 ]
-			then
-			echo "didnt find so gonna copy it"
-
-			cp -r "$PWD/$FOLDERNAME" "$PWD/dist/$FOLDERNAME"
-		fi
-
-
+		echo "- $FOLDER"
+		cp -r "$PWD/$FOLDER" "$PWD/dist/$FOLDER"
 	fi
 done
 
+echo "\n*** Included Files ***"
+for file in ${INCLUDEFILES[@]}
+do
+	FILE=$file
 
+	if [ -f $FILE ]
+		then
+		echo "- $FILE"
+		cp "$PWD/$FILE" "$PWD/dist/$FILE"
+	fi
+done
 
-# for i in "${IGNOREFILES[@]}"
-# do
-# 	echo "$i"
-# done
+echo "\n*** Distribution size ***"
+du -hcs $PWD/dist
 
-# for i in "${IGNOREFOLDERS[@]}"
-# do
-# 	echo "$i"
-# done
+echo "\nDone.\n"
