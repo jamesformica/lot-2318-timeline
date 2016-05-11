@@ -11,10 +11,15 @@ module Gallery {
 
 		private $roller: JQuery;
 		private $body: JQuery;
+		private $prev: JQuery;
+		private $next: JQuery;
 
 		constructor(private $container: JQuery) {
 			this.$body = $("body");
 			this.$roller = this.$container.find(".ui-roller");
+			this.$next = this.$container.find(".ui-move-next");
+			this.$prev = this.$container.find(".ui-move-prev");
+
 			this.maxPhotos = Number(this.$roller.data("count")) - 1; // 0 index it
 
 			this.AttachEvents();
@@ -22,14 +27,14 @@ module Gallery {
 		}
 
 		private AttachEvents(): void {
-			this.$container.find(".ui-move-next").click(() => {
+			this.$next.click(() => {
 				if (this.photoCounter < this.maxPhotos) {
 					this.photoCounter++;
 					this.MoveRoller();
 				}
 			});
 
-			this.$container.find(".ui-move-prev").click(() => {
+			this.$prev.click(() => {
 				if (this.photoCounter > 0) {
 					this.photoCounter--;
 					this.MoveRoller();
@@ -54,6 +59,9 @@ module Gallery {
 
 		private MoveRoller(): void {
 			this.$roller.css("transform", "translateX(" + -100 * this.photoCounter + "%)");
+
+			this.$prev.toggleClass("disabled", this.photoCounter === 0);
+			this.$next.toggleClass("disabled", this.photoCounter === this.maxPhotos);
 		}
 
 		private ToggleBodyScroll(scroll: boolean): void {
